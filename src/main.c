@@ -10,7 +10,8 @@ Window root;                    // root window
 
 typedef struct Client Client;
 
-struct Client{
+struct Client
+{
     Window client_win;
     struct Client *next;
 };
@@ -51,20 +52,24 @@ int main()
     XEvent event;
     int running = true;
 
-    while(running){
+    while(running)
+    {
         XNextEvent(display, &event);
 
-        switch(event.type) {
+        switch(event.type)
+        {
             case KeyPress:
 
                 KeySym keysys = XKeysymToKeycode(display, event.xkey.keycode);
                 printf("Key press: %lu\n", keysys);
 
-                if (event.xkey.keycode == XKeysymToKeycode(display, XK_Return)) {
+                if (event.xkey.keycode == XKeysymToKeycode(display, XK_Return)) 
+                {
                     printf("Spaning terminal\n");
                     spawn_terminal();
                 }
-                else if (event.xkey.keycode == XKeysymToKeycode(display, XK_q)) {
+                else if (event.xkey.keycode == XKeysymToKeycode(display, XK_q)) 
+                {
                     printf("Exitng SPUER_WM...\n");
                     XCloseDisplay(display);
                     running = false;
@@ -84,9 +89,9 @@ int main()
                 // todo remove from the list
             break;
 
-        } // switch
+        } 
 
-    }// while end
+    }
 
     XCloseDisplay(display);
     return 0;
@@ -108,7 +113,8 @@ void add_client(Window win)
 
 void spawn_terminal()
 {
-    if (fork() == 0) {
+    if (fork() == 0) 
+    {
         execlp("kitty", "kitty", NULL);
         exit(0);
     }
