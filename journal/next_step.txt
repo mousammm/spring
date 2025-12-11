@@ -1,0 +1,106 @@
+tinywm:     starting 
+awsomwWM:   transparency
+
+1. Understand X11 Basics
+    Learn Xlib/XCB fundamentals
+    Understand X server-client architecture
+    Study core concepts: Display, Window, Event, GC (Graphics Context)
+
+2. Setup Development Environment
+3. Basic X11 Connection
+4. Window Manager Framework
+
+5. Event Handling System
+    Implement select() or XNextEvent loop
+    Handle basic events:
+        KeyPress/KeyRelease
+        ButtonPress/ButtonRelease
+        MapRequest (new window)
+        ConfigureRequest (window resize/move)
+        DestroyNotify (window closed)
+
+6. Window Management
+// Implement linked list for clients
+
+7. Basic Tiling Algorithm
+Start with simple master-stack layout
+void tile(WM *wm) {
+    // 1. Arrange master window (left side, 50% width)
+    // 2. Arrange stack windows (right side, vertical split)
+    // 3. Apply positions to all windows
+}
+
+8. Layout Managers
+Implement different layouts:
+    Monocle (fullscreen)
+    Grid
+    Fibonacci
+    Custom layouts
+
+9. Window Focus Management
+    Implement focus cycling
+    Mouse focus following
+    Visual focus indication (border colors)
+
+10. Keybindings System
+// Parse config file for keybindings
+// Map keys to actions
+// Implement keygrabbing
+
+11. Status Bar
+    Create a simple bar showing:
+        Workspace info
+        Window title
+        System status
+    Use Xft for fonts
+
+12. Workspaces/Tags
+    Multiple desktop implementation
+    Window tagging system
+    Workspace switching
+    
+13. Rules System
+    Window matching by class/instance
+    Automatic workspace assignment
+    Floating window exceptions
+
+14. IPC (Inter-Process Communication)
+    Named pipes or UNIX sockets
+    External control interface
+    Status updates
+
+15. Configuration
+    Config.h pattern (like dwm)
+    Runtime reconfiguration
+    Patch system design
+
+16. Performance Optimizations
+    Reduce redraws
+    Efficient algorithms
+    Memory management
+
+17. Bug Fixes & Testing
+    Handle edge cases
+    Memory leak detection
+    Stress testing
+
+18. Documentation
+    Code comments
+    User manual
+
+Configuration examples
+    Week 1-2: Study X11 basics, create connection
+    Week 3-4: Basic event loop, window management
+    Week 5-6: Implement tiling algorithms
+    Week 7-8: Add keybindings, status bar
+    Week 9-10: Advanced features (workspaces, rules)
+    Week 11-12: Polish, test, document
+
+Minimum Viable WM Checklist
+    Connect to X server
+    Handle window creation
+    Basic event loop
+    Simple tiling (even just two windows)
+    Keyboard navigation
+    Window focus
+    Exit cleanly

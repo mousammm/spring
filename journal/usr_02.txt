@@ -1,0 +1,16 @@
+
+man XOpenDisplay(3):
+    connect or disconnect to X server
+    
+
+Display *XOpenDisplay(*display_name);
+    - display_name == NULL;defaults to $DISPLAY
+    - it return a pointer display struct 
+    - connection to the X server
+    - connect through TCP or DECnet 
+    - information  macros  or functions. to access the struct
+
+int XCloseDisplay(*XOpenDisplay);
+
+int XNextEvent(*XOpenDisplay, XEvent *event_return);
+    -event_return: Returns the matched event's associated structure.

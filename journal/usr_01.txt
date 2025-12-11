@@ -1,0 +1,25 @@
+    Week 1-2: Study X11 basics, create connection
+    Week 3-4: Basic event loop, window management
+    Week 5-6: Implement tiling algorithms
+    Week 7-8: Add keybindings, status bar
+    Week 9-10: Advanced features (workspaces, rules)
+    Week 11-12: Polish, test, document
+
+RESOURCES:
+    man XOpenDisplay
+    man XCloseDisplay
+    man XNextEvent
+
+XLIB OFFICIAL DOCS:
+    https://tronche.com/gui/x/xlib/
+    https://www.x.org/releases/X11R7.7/doc/libX11/libX11/libX11.html
+
+# dependencies
+
+# sudo pacman -S xorg-server xorg-xproto xorg-x11-server-devel gcc make git
+# sudo pacman -S xorg-server-xephyr  # most important for window manger 
+
+Xephyr :1 -screen 800x600 &
+
+# Run your WM inside it
+DISPLAY=:1 ./mywm

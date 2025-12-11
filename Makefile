@@ -28,7 +28,7 @@ $(BINDIR)/%.o: $(SRCDIR)/%.c | $(BINDIR)
 
 run: $(BINDIR)/$(BINARY)
 	@echo "Starting Xephyr..."
-	@Xephyr :1 -screen 960x540 -ac &
+	@Xephyr :1 -screen 1920x1080 -ac &
 	@sleep 1
 	@echo "Running WM..."
 	@DISPLAY=:1 ./$(BINDIR)/$(BINARY) || true

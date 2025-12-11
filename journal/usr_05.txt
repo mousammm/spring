@@ -1,0 +1,41 @@
+Thu 11 dec; 04:24pm
+    
+    today was more of a learning day i cleared my all mistakes yeah before i was 
+    implement xkb for input well it was wrong in the sense i was running the binary 
+    directly in my system which its already running a x server so it was showing a 
+    bad access error, look some tut and yeah finallyy figure it out
+
+    - code refactore
+    - remove xkb for input
+    - use Xyphyr for window viewing
+    - proper code structure
+    - implemented tile 
+
+
+Today was heavy lesson learnign day, i was able to clear my past mistackes ;) 
+
+    6:07pm 
+
+    ahh i just mess my project dir 
+    have to create a new repo and shift there
+    Good thing i PUSHH all my commits *) no harm !!
+
+    8:30pm
+
+    i was looking through tinyWM 
+    he should how to implement mouse resize and move 
+    IMPLEMENTED it failed
+    the problem was i not using proper if else
+    I;m still confused to wheather to use switch or if else
+    or may be both ;; better
+
+    AHHH maybe for today its enough 
+    i have my pre finals exams for hs final
+    i havent studied anyting ;) lol
+
+    NEXT few days i will be for documenting i wont be doing much of a 
+    useful stuff, need to digest what i coded,
+    and do some indepth research on my current code
+    MOST IMPORTANTLY: code refactor ;; make it clean 
+
+    byeeee!

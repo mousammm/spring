@@ -1,0 +1,34 @@
+
+day 1:wed 10 dec 11:01pm
+
+progress: got a x server working with Mod4+CR for terminal open and 
+            MOD4+Q to close 
+
+learned:
+    man XOpenDisplay
+    man XCloseDisplay
+    man XEvent
+
+connecting to x server to was easy 
+P1: can get keyboard input 
+    but after some time i got this discussion really helpful
+        https://gist.github.com/jouyouyun/669726de58df8d333666
+
+    key input impossible with regular Xlib,
+    because only one client can register for button press on a window.
+    can be done using X input extensions and by listening XI_RawButtonPress Event,
+
+    this help in key input 
+        #include <X11/extensions/XInput2.h> // for input raw input dont work
+
+P2: event 
+     this is depricated
+        X(display, event.xkey.keycode, 0);
+
+     from #include <X11/XKBlib.h> 
+        XkbKeycodeToKeysym (display, event.xkey.keycode, 0, 0);
+ 
+ Conclusion:
+    learned a lot 
+    got stuck find the sol
+    repeat

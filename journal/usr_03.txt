@@ -1,0 +1,209 @@
+
+dwm source code:
+    wait the way i was doing was not right have to study dwm source code
+
+config.def.h: call in dwm.c
+    gets converted to config.h
+    then used in dwm.c 
+    we can just hard code 
+
+transient.c 
+    really dont know any real purpose of this idk
+    but when u compile it 2 window pop up 
+    maybe its a starting point if u wanna create ur own wm
+
+util.h:
+    die and ecalloc 
+    just 2 function 
+    idk u can just merge in dwm.c or someting like that 
+    or beacuse it is used in dwm.c drw.c
+    helper fun for 2 files
+
+util.c:
+    actual implementation of util.h
+
+drw.h
+    STRUCT:
+        cursor
+        font
+        color scheme
+        drawable: struct of above struct
+
+    FUN DECLARATION:
+        drawable abstraction
+            drw_create
+            drw_resize
+            drw_free
+
+        FONT ABSTRACTION
+            drw_fontset_create
+            drw_fontset_free
+            drw_fontset_getwidth
+            drw_fontset_getwidth_clamp
+            drw_font_getexts
+
+        COLORSCHEME ABSTRACTION
+            drw_clr_create 
+            drw_clr_free
+            drw_scm_create 
+            drw_scm_free
+
+        CURSOR ABSTRACTION
+            drw_cur_create
+            drw_cur_free
+
+        DRAWING CONTEXT MANIPULATION
+            drw_setfontset
+            drw_setscheme
+            
+        DRAWING FUNCTION
+            drw_rect
+            drw_text
+
+        MAP FUNCTION
+            drw_map
+
+drw.c
+
+    utf8decode(N)
+    drw_create
+    drw_resize
+    drw_free
+
+    xfont_create(N)
+    xfont_free(N)
+
+    drw_fontset_create
+    drw_fontset_free
+
+    drw_clr_create
+    drw_scm_create
+    drw_clr_free
+    drw_scm_free
+
+    drw_setfontset
+    drw_setscheme
+
+    drw_rect
+    drw_text
+    drw_map
+
+    drw_fontset_getwidth
+    drw_fontset_getwidth_clamp
+    drw_font_getexts
+
+    drw_cur_create
+    drw_cur_free
+
+dwm.c
+    headers/macros/enums
+    struct
+        Arg/Button
+        Client
+        Key(arg is used)/Layout
+        Monitor/Rule
+
+    Function declaration
+        applyrules
+        applysizehints
+        arrange
+        arrangemon
+        attach
+        attachstack
+        buttonpress
+        checkotherwm
+        cleanup
+        cleanupmon
+        clientmessage
+        configure
+        configurenotify
+        configurerequest
+        createmon
+        destroynotify
+        detach
+        detachstack
+        dirtomon
+        drawbar
+        drawbars
+        enternotify
+        expose
+        focus
+        focusin
+        focusmon
+        focusstack
+        getatomprop
+        getrootptr
+        getstate
+        gettextprop
+        grabbuttons
+        grabkeys
+        incnmaster
+
+    PRAGMA XINERAMA
+
+        keypress
+        killclient
+        manage
+        mappingnotify
+        maprequest
+        monocle
+        motionnotify
+        movemouse
+        nexttiled
+        pop
+        propertynotify
+        quit
+        recttomon
+        resize
+        resizecliet
+        resizemouse
+        restack
+        run
+        scan
+        // sendevent 
+        sendmon
+        setclientstate
+        // here
+        setfocus
+        setfullscreen
+        setlayout
+        setmfact
+        setup
+        seturgent
+        showhide
+        spawn
+        tag
+        tagmon
+        tile
+        togglebar
+        togglefloating
+        toggletag
+        toggleview
+        unfocus
+        unmanage
+        unmapnotify
+        // here
+        updatebarpos
+        //updatebars
+        updateclientlist
+        updategeom
+        updatenumlockmas
+        updatesizehints
+        updatestatus
+        updatetitle
+        updatewindowtype
+        updatewmhints
+        view
+        wintoclient
+        wintomon
+        xerror
+        xerrordummy
+        xerrorstart
+        zoom
+    
+    Variables ..
+        
+    int main()
+        setup()
+        run()
+        run()
