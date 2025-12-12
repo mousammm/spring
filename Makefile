@@ -6,7 +6,7 @@ CC=gcc
 INCS = -I./src/includes
 LIBS = -lutil -lX11 
 
-CFLAGS=-Wall -Wextra -g $(LIBS)
+CFLAGS=-Wall -Wextra -g $(INCS)
 LDLIBS = $(LIBS)
 
 SRCS=$(wildcard $(SRCDIR)/*.c)
