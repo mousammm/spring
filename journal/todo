@@ -1,0 +1,16 @@
+
+a ->
+- tell what all the fun do
+- guied to how to look into the source code & files
+
+b -> 
+- explain files function 
+- a systematic way of explaing all the function
+
+1. basic structure 
+2. initialize x11 connection
+3. create wm manager and set properties 
+4. handle new window creation
+5. handle events 
+7. handle shortcut
+8. main loop
