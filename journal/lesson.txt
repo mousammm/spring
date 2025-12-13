@@ -74,3 +74,96 @@ Client Array (clients)
     Each entry is a Client struct containing window info
     Simpler than dynamic allocation but limits to 100 windows
 
+
+==============================================================
+2/ Setting the event 
+
+XSelectInput(display, root, 
+   SubstructureRedirectMask | SubstructureNotifyMask |
+   KeyPressMask | ButtonPressMask | PropertyChangeMask);  
+
+// Grab essential keyboard shortcuts
+XGrabKey(display, XKeysymToKeycode(display, XK_Return), 
+         Mod1Mask, root, True, GrabModeAsync, GrabModeAsync);
+XGrabKey(display, XKeysymToKeycode(display, XK_q), 
+         Mod1Mask, root, True, GrabModeAsync, GrabModeAsync);
+XGrabKey(display, XKeysymToKeycode(display, XK_c), 
+             Mod1Mask|ShiftMask, root, True, GrabModeAsync, GrabModeAsync);
+
+// Set WM_NAME property
+XStoreName(display, root, "MyWM");
+
+// Set support for WM_DELETE_WINDOW protocol
+Atom wm_delete_window = XInternAtom(display, "WM_DELETE_WINDOW", False);
+Atom wm_protocols = XInternAtom(display, "WM_PROTOCOLS", False);
+
+EXPLANATION:
+display: The connection to the X server
+root: The root window (covers the entire screen)
+XSelectInput(): The function that sets up event listening
+
+    SUBSTRUCTUREREDIRECTMASK (MOST IMPORTANT FOR A WM)
+It gives the window manager control over:
+    Managing child windows of the root window (application windows)
+    Redirecting window creation, movement, resizing, etc.
+    Without this mask, you cannot be a proper window manager
+
+    SUBSTRUCTURENOTIFYMASK
+Allows the window manager to receive notifications about:
+    Changes to child windows (creation, destruction, restacking)
+    Window property changes in the window hierarchy
+    Essential for tracking window state
+
+    KEYPRESSMASK
+Enables receiving keyboard events on the root window:
+    Global keybindings (like Alt+Tab, Super key)
+    Essential for implementing keyboard shortcuts
+
+    BUTTONPRESSMASK
+Enables receiving mouse button events:
+    Root window clicks (for showing menus, etc.)
+    Could be used for mouse-based window operations
+
+    PROPERTYCHANGEMASK
+Notifies when window properties change:
+    Window titles (WM_NAME, _NET_WM_NAME)
+    Window class (WM_CLASS)
+    Window hints (WM_HINTS, WM_NORMAL_HINTS)
+    Essential for tracking window state changes
+
+// we grab some keys XGrabKey
+// Set root name
+
+/ Set support for WM_DELETE_WINDOW protocol
+Atom wm_delete_window = XInternAtom(display, "WM_DELETE_WINDOW", False);
+Atom wm_protocols = XInternAtom(display, "WM_PROTOCOLS", False);
+
+    Gets the atom (identifier) for "WM_DELETE_WINDOW"
+    This is a standard protocol that allows windows to be closed gracefully
+    When a window wants to close, it sends this message instead of just being destroyed
+    Gets the atom for "WM_PROTOCOLS"
+    This is a property that lists which protocols a window supports
+    Windows set this property to indicate what protocols they understand
+After getting these atoms, a typical WM would:
+    Check if a window supports the WM_DELETE_WINDOW protocol
+    If it does, the WM will send this message when the user tries to close the window
+    The application can then save data or ask for confirmation before closing
+    If the window doesn't support it, the WM just destroys the window
+
+// Set WM_DELETE_WINDOW as a supported protocol for a window
+XSetWMProtocols(display, window, &wm_delete_window, 1);
+
+// Later, when handling window close:
+if (event.type == ClientMessage) {
+    if (event.xclient.data.l[0] == wm_delete_window) {
+        // Send WM_DELETE_WINDOW message to client
+        // instead of forcibly killing it
+    }
+}
+
+    Without WM_DELETE_WINDOW: Clicking close instantly kills the application
+    With WM_DELETE_WINDOW: Application gets notified and can clean up properly
+    User experience: Applications can ask "Save before closing?" or clean up resources
+    WM to ICCCM-compliant (Inter-Client Communication Conventions Manual), which ensures compatibility with standard X11 applications.
+
+
