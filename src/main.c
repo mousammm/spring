@@ -92,6 +92,7 @@ void manage_window(Window win)
     
     // set border 
     XSetWindowBorder(display, win, 0xFF0000);
+    XSetWindowBorderWidth(display, win, 0);
 
     // send WM_DELETE_WINDOW protocol to window 
     XSetWMProtocols(display, win, &wm_delete_window, 1);
@@ -107,24 +108,27 @@ void tile_windows()
 {
    if (client_count == 0) return; 
 
-    int num_cols = 0;
+    int gap      = 5;       // gap btw window
+    int num_cols = (client_count == 1) ? 1 : 2;
+    int num_rows = (client_count + num_cols - 1) / num_cols;   
 
-    if (client_count == 1) num_cols = 1;
-    else num_cols = 2;
+    // calculate available space - gaps
+    int total_width  = DisplayWidth(display, screen);
+    int total_height = DisplayHeight(display, screen);
 
-   
-   int num_rows = (client_count + num_cols - 1) / num_cols;   // ceiling division
+    // for gaps btw windows
+   int width    = (total_width  - (num_cols + 1) * gap) / num_cols;
+   int height   = (total_height - (num_cols + 1) * gap) / num_rows;
 
-   int width    = DisplayWidth (display, screen) / num_cols;
-   int height   = DisplayHeight(display, screen) / num_rows; 
 
    for (int i = 0; i < client_count; i++)
    {
         int col = i % num_cols;
         int row = i / num_cols;
 
-        clients[i].x = col * width;
-        clients[i].y = row * height;
+        // added gap position
+        clients[i].x = gap + col * (width  + gap);
+        clients[i].y = gap + row * (height + gap);
         clients[i].w = width;
         clients[i].h = height;
 
@@ -212,9 +216,9 @@ void handle_keypress(XKeyEvent *ev)
         pid_t pid = fork();
         if(pid == 0)
         {
-            execlp("xterm", "xterm", NULL);
-            // if xterm failed
             execlp("kitty", "kitty", NULL);
+            // if kitty failed
+            execlp("xterm", "xterm", NULL);
             exit(1);
         }
         else if(pid < 0)
