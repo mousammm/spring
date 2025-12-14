@@ -10,7 +10,8 @@ A minimal tiling window manager written in C for educational purposes. Currently
 - [x] X11 server connection and event loop
 - [x] Basic keyboard shortcuts (SUPER+Enter, SUPER+Q)
 - [x] Initial tiling layout logic
-- [x] Mouse resize and move 
+- [x] window gap
+- [ ] Mouse resize and move 
 
 ## Building & Running
 ```bash
@@ -25,9 +26,9 @@ make run
 - Xephyr
 
 ## Resources
-- Xlib Manual
-- X Window System Protocol
-- Existing WMs: dwm, i3, tinyWM, awesomewm source code
+- dwm
+- tinyWM
+- sowm
+- swm/wmutils
+- berry
 
----
-*Note: This project is for educational purposes. Use at your own risk on production systems.*

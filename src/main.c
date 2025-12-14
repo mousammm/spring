@@ -21,6 +21,9 @@ int         client_count = 0;
 Atom        wm_delete_window;
 Atom        wm_protocols;
 
+// windows focus
+Window focused_window = None;
+
 void init_x();
 void setup_wm();
 void manage_window(Window win);
@@ -83,6 +86,10 @@ void manage_window(Window win)
     // store client 
     clients[client_count].window = win;
     client_count++;
+
+    // set as focused 
+    focused_window = win;
+    XSetInputFocus(display, win, RevertToParent, CurrentTime);
 
     // select events for this window
     XSelectInput(display, win, 
@@ -172,11 +179,39 @@ void handle_event(XEvent *ev)
             break;
 
         case DestroyNotify:
+        {
+            // remove window from our list 
+            Window destroyed = ev->xdestroywindow.window;
+
             // remove window form our list 
             for (int i = 0; i < client_count; i++)
             {
-                if(clients[i].window == ev->xdestroywindow.window)
+                if(clients[i].window == destroyed)
                 {
+                    // if destroyed window was focused, focus previous window
+                    if(focused_window == destroyed) 
+                    {
+                        if(i > 0)
+                        {
+                            // focus the window before this one
+                            focused_window = clients[i-1].window;
+                        }
+                        else if (client_count > 1)
+                        {
+                            // focus the next window if this was first
+                            focused_window = clients[1].window;
+                        }
+                        else 
+                        {
+                            // no window left 
+                            focused_window = None;
+                        }
+
+                        if (focused_window != None){
+                            XSetInputFocus(display, focused_window, RevertToParent, CurrentTime);
+                        }
+                    }
+
                     // shift remaning windows
                     for (int j = i; j < client_count - 1; j++)
                     {
@@ -188,6 +223,7 @@ void handle_event(XEvent *ev)
                 }
             }
             break;
+        }
         
         case UnmapNotify:
             // window was unmap (minimized or hidden)
